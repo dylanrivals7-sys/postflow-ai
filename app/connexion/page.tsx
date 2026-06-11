@@ -44,8 +44,11 @@ function ConnexionForm() {
 
       if (profile?.statut === 'actif') {
         router.push(redirect)
-      } else {
+      } else if (profile?.statut === 'en_attente') {
         router.push('/attente')
+      } else {
+        // non_paye ou suspendu → page de paiement
+        router.push('/paiement')
       }
     } catch {
       setError('Une erreur inattendue est survenue.')

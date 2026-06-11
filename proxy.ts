@@ -49,7 +49,7 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // ── Rediriger users connectés et actifs hors des pages auth ──
+  // ── Rediriger users connectés hors des pages auth ──
   if ((pathname === '/connexion' || pathname === '/inscription') && user) {
     const { data: profile } = await supabase
       .from('profiles')
@@ -62,6 +62,9 @@ export async function proxy(request: NextRequest) {
     }
     if (profile?.statut === 'en_attente') {
       return NextResponse.redirect(new URL('/attente', request.url))
+    }
+    if (profile?.statut === 'non_paye') {
+      return NextResponse.redirect(new URL('/paiement', request.url))
     }
   }
 
