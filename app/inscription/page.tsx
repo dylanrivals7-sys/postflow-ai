@@ -3,11 +3,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
 import { Suspense } from 'react'
 
 function InscriptionForm() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const forfaitParam = searchParams.get('forfait') ?? 'pro'
 
@@ -33,39 +31,18 @@ function InscriptionForm() {
     setLoading(true)
 
     try {
-      const supabase = createClient()
-
-      // 1. Créer le compte Supabase
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email: form.email,
-        password: form.password,
-        options: {
-          data: {
-            nom: form.nom,
-            type_profil: form.type_profil,
-          },
-        },
-      })
-
-      if (signUpError) {
-        if (signUpError.message.includes('already registered')) {
-          setError('Cet email est déjà utilisé. Connecte-toi à la place.')
-        } else {
-          setError(signUpError.message)
-        }
-        return
-      }
-
-      if (!data.user) {
-        setError('Erreur lors de la création du compte.')
-        return
-      }
-
-      // 2. Créer la session Stripe Checkout
+      // Appel direct au checkout — le compte est créé côté serveur via admin client
+      // (bypass la confirmation email Supabase)
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ forfait: form.forfait }),
+        body: JSON.stringify({
+          forfait: form.forfait,
+          nom: form.nom,
+          email: form.email,
+          password: form.password,
+          type_profil: form.type_profil,
+        }),
       })
 
       const json = await res.json()
@@ -75,7 +52,7 @@ function InscriptionForm() {
         return
       }
 
-      // 3. Rediriger vers Stripe
+      // Rediriger vers Stripe Checkout
       window.location.href = json.url
     } catch {
       setError('Une erreur inattendue est survenue. Réessaie.')
@@ -95,7 +72,6 @@ function InscriptionForm() {
           <p className="text-gray-500 text-sm">7 jours gratuits, sans engagement</p>
         </div>
 
-        {/* Avertissement délai validation */}
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6 flex gap-2.5 text-sm text-amber-800">
           <span className="text-lg flex-shrink-0">ℹ️</span>
           <div>
@@ -169,6 +145,9 @@ function InscriptionForm() {
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl">
                 {error}
+                {error.includes('déjà utilisé') && (
+                  <Link href="/connexion" className="block mt-1 font-bold underline">→ Se connecter</Link>
+                )}
               </div>
             )}
 
@@ -183,7 +162,7 @@ function InscriptionForm() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
                   </svg>
-                  Création du compte…
+                  Redirection vers le paiement…
                 </span>
               ) : (
                 'Créer mon compte et payer →'
