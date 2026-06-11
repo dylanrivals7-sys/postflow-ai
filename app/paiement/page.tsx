@@ -102,14 +102,15 @@ export default function PaiementPage() {
             Post<span className="text-brand-500">Flow</span> AI
           </Link>
           <h1 className="text-3xl font-black text-gray-900 mb-2">Choisis ton forfait</h1>
-          <p className="text-gray-500">7 jours gratuits · Sans engagement · Annulable en 2 clics</p>
+          <p className="text-gray-500">Sans engagement · Annulable à tout moment · RGPD</p>
         </div>
 
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-8 flex gap-2.5 text-sm text-amber-800">
           <span className="text-lg flex-shrink-0">ℹ️</span>
           <div>
-            <strong>Activation sous 1 à 2 jours ouvrés</strong> après validation manuelle de votre paiement.
-            Vous recevrez un email dès que votre accès est ouvert.
+            <strong>Activation sous 24h</strong> après réception de ton paiement.
+            Tu recevras un email de confirmation dès que ton accès est ouvert.
+            Tu peux annuler à tout moment pendant cette période sans être débité.
           </div>
         </div>
 

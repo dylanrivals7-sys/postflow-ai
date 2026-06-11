@@ -23,7 +23,7 @@ export function emailPaiementConfirme({ nom, forfait, appUrl }: {
     <div class="box">
       <strong>⏳ Ton compte est en cours de validation</strong>
       <p style="margin:8px 0 0;font-size:14px;color:#6b7280">
-        Notre équipe va valider ton accès dans les <strong>1 à 2 jours ouvrés</strong>.
+        Ton accès PostFlow AI sera activé sous <strong>24h</strong>.
         Tu recevras un email dès que ton compte est actif — aucune action de ta part n'est nécessaire.
       </p>
     </div>

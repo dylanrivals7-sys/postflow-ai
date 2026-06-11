@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
       locale: 'fr',
       custom_text: {
         submit: {
-          message: 'Votre compte sera activé sous 1 à 2 jours ouvrés après validation de votre paiement.',
+          message: 'Votre accès PostFlow AI sera activé sous 24h après réception du paiement.',
         },
       },
     })
