@@ -28,17 +28,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
           </div>
         </div>
         <nav className="flex-1 p-4 space-y-1">
-          {[
-            { href: '/dashboard',              icon: '🏠', label: 'Tableau de bord' },
-            { href: '/dashboard/generateur',   icon: '✨', label: 'Générer un post' },
-            { href: '/dashboard/calendrier',   icon: '📅', label: 'Calendrier' },
-            { href: '/dashboard/historique',   icon: '📋', label: 'Mes posts' },
-            { href: '/dashboard/parametres',   icon: '⚙️', label: 'Paramètres' },
-          ].map(item => (
-            <a key={item.href} href={item.href} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:bg-white/10 hover:text-white transition-all text-sm font-medium">
-              <span>{item.icon}</span> {item.label}
-            </a>
-          ))}
+          <a href="/dashboard" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:bg-white/10 hover:text-white transition-all text-sm font-medium">
+            <span>🏠</span> Tableau de bord
+          </a>
         </nav>
         <div className="p-4 border-t border-white/10">
           <div className="flex items-center gap-3 px-3 py-2 mb-2">

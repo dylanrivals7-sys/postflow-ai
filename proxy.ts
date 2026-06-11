@@ -44,7 +44,7 @@ export async function proxy(request: NextRequest) {
   // ── Protection de la page admin ──
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
     const adminSession = request.cookies.get('admin_session')
-    if (!adminSession || adminSession.value !== process.env.ADMIN_SECRET_PASSWORD) {
+    if (!adminSession || adminSession.value !== process.env.ADMIN_PASSWORD) {
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
   }

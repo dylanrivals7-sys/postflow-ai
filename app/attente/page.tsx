@@ -1,18 +1,27 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function AttentePage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  let profile = null
-  if (user) {
-    const { data } = await supabase
-      .from('profiles')
-      .select('nom, forfait, statut')
-      .eq('id', user.id)
-      .single()
-    profile = data
+  if (!user) {
+    redirect('/connexion')
+  }
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('nom, forfait, statut')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile || profile.statut === 'non_paye') {
+    redirect('/paiement')
+  }
+
+  if (profile.statut === 'actif') {
+    redirect('/dashboard')
   }
 
   return (
@@ -23,7 +32,6 @@ export default async function AttentePage() {
         </Link>
 
         <div className="bg-white rounded-3xl shadow-lg border border-gray-200 p-10">
-          {/* Animation de sablier */}
           <div className="text-6xl mb-6 animate-bounce">⏳</div>
 
           <h1 className="text-2xl font-black text-gray-900 mb-3">
@@ -32,9 +40,9 @@ export default async function AttentePage() {
 
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6 text-left">
             <p className="text-sm text-amber-800 leading-relaxed">
-              <strong>✅ Paiement reçu !</strong> Notre équipe va valider ton accès au plan{' '}
+              <strong>✅ Paiement reçu !</strong> Notre équipe va activer ton accès au plan{' '}
               <strong>{profile?.forfait ? profile.forfait.charAt(0).toUpperCase() + profile.forfait.slice(1) : ''}</strong>{' '}
-              dans les <strong>1 à 2 jours ouvrés</strong>.
+              sous <strong>24h</strong>.
               <br /><br />
               Tu recevras un email de confirmation sur{' '}
               <strong>{user?.email}</strong> dès que ton compte est actif.
@@ -46,7 +54,7 @@ export default async function AttentePage() {
             {[
               { icon: '💳', label: 'Paiement', status: 'Confirmé', ok: true },
               { icon: '🔍', label: 'Validation', status: 'En cours…', ok: false },
-              { icon: '🚀', label: 'Accès', status: 'Bientôt', ok: false },
+              { icon: '🚀', label: 'Accès', status: 'Sous 24h', ok: false },
             ].map(step => (
               <div key={step.label} className={`rounded-xl p-3 text-center ${step.ok ? 'bg-emerald-50 border border-emerald-200' : 'bg-gray-50 border border-gray-200'}`}>
                 <div className="text-2xl mb-1">{step.icon}</div>
@@ -60,8 +68,8 @@ export default async function AttentePage() {
 
           <p className="text-sm text-gray-500 mb-6">
             Une question ? Écris-nous à{' '}
-            <a href="mailto:bonjour@postflow.ai" className="text-brand-500 font-semibold hover:underline">
-              bonjour@postflow.ai
+            <a href="mailto:dylanrivals7@gmail.com" className="text-brand-500 font-semibold hover:underline">
+              dylanrivals7@gmail.com
             </a>
           </p>
 

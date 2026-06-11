@@ -52,25 +52,25 @@ const PLANS = [
 
 const TESTIMONIALS = [
   {
-    name: 'Marie Lambert',
+    name: 'Marie L.',
     role: 'Coach business · Lyon',
     text: "Avant PostFlow AI, je passais 3h le dimanche à rédiger mes posts LinkedIn. Maintenant c'est 10 minutes. Mon taux d'engagement a doublé en 6 semaines.",
-    stat: '+240% d\'engagement',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=96&h=96&q=80',
+    initials: 'ML',
+    color: 'bg-purple-500',
   },
   {
-    name: 'Thomas Roussel',
+    name: 'Thomas R.',
     role: 'Consultant RH · Paris',
     text: "J'étais sceptique sur l'IA pour créer du contenu \"authentique\". Mais PostFlow AI capture vraiment mon style. Mes clients me disent que mes posts sont de mieux en mieux.",
-    stat: '3h économisées / semaine',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=96&h=96&q=80',
+    initials: 'TR',
+    color: 'bg-blue-500',
   },
   {
-    name: 'Sophie Martin',
+    name: 'Sophie M.',
     role: 'Agence digitale · Bordeaux',
     text: "On gère 8 clients avec PostFlow AI. Avant, ça nous prenait une semaine entière pour produire tout le contenu mensuel. Maintenant c'est fait en 2 jours.",
-    stat: '8 clients gérés',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=96&h=96&q=80',
+    initials: 'SM',
+    color: 'bg-rose-500',
   },
 ]
 
@@ -80,12 +80,12 @@ const FAQS = [
     a: "Oui. Plus tu utilises PostFlow AI, plus il apprend ton style. Dès la première utilisation, tu choisis parmi 20 tons de voix et tu décris ta personnalité. La plupart des utilisateurs ne retouchent plus leurs posts après 2 semaines."
   },
   {
-    q: "Comment fonctionne l'essai gratuit de 7 jours ?",
-    a: "Tu crées ton compte, tu entres tes informations de paiement (aucun débit pendant 7 jours), et tu accèdes immédiatement à toutes les fonctionnalités. Si tu ne veux pas continuer, annule avant la fin de la période d'essai."
+    q: "Quand mon accès sera-t-il activé après paiement ?",
+    a: "Ton accès est activé sous 24h après réception de ton paiement. Tu recevras un email de confirmation dès que ton compte est ouvert. Tu peux annuler à tout moment — dans les 14 jours suivant ton paiement, le remboursement est intégral."
   },
   {
     q: "Pourquoi mon compte n'est pas actif immédiatement ?",
-    a: "Pour garantir la qualité de notre service, nous validons chaque compte manuellement sous 1 à 2 jours ouvrés. Tu recevras un email dès que ton accès est ouvert — généralement le jour même."
+    a: "Pour garantir la qualité de notre service, nous validons chaque compte manuellement sous 24h. Tu recevras un email dès que ton accès est ouvert — généralement le jour même."
   },
   {
     q: "Puis-je annuler à tout moment ?",
@@ -112,7 +112,7 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-3">
             <Link href="/connexion" className="text-sm font-semibold text-gray-600 hover:text-brand-500 transition-colors">Se connecter</Link>
-            <Link href="/inscription" className="btn-primary text-sm py-2 px-4">Essayer gratuitement</Link>
+            <Link href="/inscription" className="btn-primary text-sm py-2 px-4">Rejoindre la bêta</Link>
           </div>
         </div>
       </nav>
@@ -123,7 +123,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="inline-flex items-center gap-1.5 bg-brand-50 text-brand-600 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-5">
-              ⚡ Alimenté par l'IA
+              🚀 Bêta en cours de lancement
             </span>
             <h1 className="text-4xl md:text-5xl font-black text-gray-900 leading-[1.12] mb-5">
               Arrête de passer{' '}
@@ -138,31 +138,20 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-wrap gap-3 mb-6">
               <Link href="/inscription" className="btn-primary">
-                Commencer — 7 jours gratuits →
+                Rejoindre l'accès anticipé →
               </Link>
               <a href="#tarifs" className="btn-outline">Voir les tarifs</a>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex -space-x-2">
-                {[
-                  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=32&h=32&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=32&h=32&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=32&h=32&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=32&h=32&fit=crop&q=80',
-                ].map((src, i) => (
-                  <Image key={i} src={src} alt="" width={32} height={32} className="w-8 h-8 rounded-full border-2 border-white object-cover" />
-                ))}
-              </div>
-              <div className="text-sm text-gray-500">
-                <span className="text-yellow-400">★★★★★</span> · <strong>+2 400 coaches</strong> utilisent PostFlow AI
-              </div>
+              <span className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-600 shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                Accès anticipé disponible maintenant
+              </span>
             </div>
           </div>
 
           {/* Hero image + mockup */}
           <div className="relative">
-            {/* Photo de coach */}
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-brand-500/20 border border-gray-200 mb-4">
               <Image
                 src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=600&h=380&q=80"
@@ -196,7 +185,7 @@ export default function LandingPage() {
               Généré en 28 secondes
             </div>
             <div className="absolute -top-4 -right-4 bg-white rounded-xl px-3 py-2 shadow-lg text-xs font-semibold text-brand-600 border border-gray-100">
-              🔥 Viralité estimée : 94%
+              🚀 Accès anticipé
             </div>
           </div>
         </div>
@@ -246,19 +235,20 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── STATS ── */}
-      <section className="py-16 bg-brand-500">
+      {/* ── BÊTA LAUNCH BAR ── */}
+      <section className="py-14 bg-brand-500">
         <div className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             {[
-              { n: '+2 400', label: 'Coachs & consultants' },
-              { n: '30 sec', label: 'Pour générer un post' },
-              { n: '+180%', label: "D'engagement moyen" },
-              { n: '3h/sem', label: 'Économisées en moyenne' },
+              { icon: '🚀', label: 'Bêta en cours de lancement', sub: 'Accès anticipé disponible' },
+              { icon: '⚡', label: '30 secondes', sub: 'Pour générer un post' },
+              { icon: '🎯', label: 'LinkedIn · Instagram · TikTok', sub: '3 plateformes supportées' },
+              { icon: '✅', label: 'Activation sous 24h', sub: 'Après réception du paiement' },
             ].map(s => (
-              <div key={s.n}>
-                <div className="text-3xl md:text-4xl font-black mb-1">{s.n}</div>
-                <div className="text-white/70 text-sm">{s.label}</div>
+              <div key={s.label}>
+                <div className="text-3xl mb-2">{s.icon}</div>
+                <div className="text-sm font-black mb-0.5">{s.label}</div>
+                <div className="text-white/70 text-xs">{s.sub}</div>
               </div>
             ))}
           </div>
@@ -372,7 +362,7 @@ export default function LandingPage() {
                   <div className="font-bold text-sm text-gray-900">LinkedIn</div>
                   <div className="text-xs text-gray-400">Post professionnel</div>
                 </div>
-                <span className="ml-auto text-xs bg-blue-50 text-blue-600 font-bold px-2 py-0.5 rounded-md">+847 👍</span>
+                <span className="ml-auto text-xs bg-blue-50 text-blue-600 font-bold px-2 py-0.5 rounded-md">Exemple</span>
               </div>
               <p className="text-sm text-gray-700 leading-relaxed border-l-2 border-[#0A66C2] pl-3">
                 <strong>💡 Tu veux tes premiers clients mais tu n'as "aucun réseau" ?</strong><br /><br />
@@ -402,7 +392,7 @@ export default function LandingPage() {
                   <div className="w-5 h-5 rounded" style={{background:'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)'}} />
                   <span className="text-xs font-bold">Instagram</span>
                 </div>
-                <div className="absolute top-2 right-2 text-xs bg-pink-50 text-pink-600 font-bold px-2 py-0.5 rounded-md border border-pink-100">+1.2k ❤️</div>
+                <div className="absolute top-2 right-2 text-xs bg-pink-50 text-pink-600 font-bold px-2 py-0.5 rounded-md border border-pink-100">Exemple</div>
               </div>
               <div className="p-4">
                 <p className="text-sm text-gray-700 leading-relaxed">
@@ -426,7 +416,7 @@ export default function LandingPage() {
                   <div className="font-bold text-sm text-gray-900">TikTok</div>
                   <div className="text-xs text-gray-400">Script vidéo</div>
                 </div>
-                <span className="ml-auto text-xs bg-gray-100 text-gray-600 font-bold px-2 py-0.5 rounded-md">+12k 👁</span>
+                <span className="ml-auto text-xs bg-gray-100 text-gray-600 font-bold px-2 py-0.5 rounded-md">Exemple</span>
               </div>
               <div className="space-y-2">
                 {[
@@ -450,25 +440,19 @@ export default function LandingPage() {
       <section id="avis" className="py-24">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
-            <div className="text-brand-500 text-xs font-bold uppercase tracking-widest mb-3">Ils l'utilisent chaque jour</div>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">+2 400 pros nous font confiance</h2>
-            <div className="flex items-center justify-center gap-1 text-yellow-400 text-lg mb-2">★★★★★</div>
-            <p className="text-gray-500">Note moyenne : 4.9/5 sur 840 avis</p>
+            <div className="text-brand-500 text-xs font-bold uppercase tracking-widest mb-3">Premiers retours</div>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">Ce que disent nos testeurs</h2>
+            <p className="text-gray-500">Rejoins les premiers à utiliser PostFlow AI</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {TESTIMONIALS.map(t => (
               <div key={t.name} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex text-yellow-400 mb-4 text-sm">★★★★★</div>
                 <p className="text-gray-700 text-sm leading-relaxed mb-5 italic">"{t.text}"</p>
-                <div className="bg-brand-50 rounded-xl px-3 py-2 text-xs font-bold text-brand-600 mb-4 inline-block">{t.stat}</div>
                 <div className="flex items-center gap-3 border-t border-gray-100 pt-4">
-                  <Image
-                    src={t.avatar}
-                    alt={t.name}
-                    width={44}
-                    height={44}
-                    className="w-11 h-11 rounded-full object-cover border-2 border-brand-100"
-                  />
+                  <div className={`w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 ${t.color}`}>
+                    {t.initials}
+                  </div>
                   <div>
                     <div className="font-bold text-gray-900 text-sm">{t.name}</div>
                     <div className="text-gray-400 text-xs">{t.role}</div>
@@ -477,24 +461,14 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-          {/* Bandeau photos */}
+
           <div className="mt-12 flex justify-center">
-            <div className="flex items-center gap-4 bg-gray-50 rounded-2xl px-6 py-4 border border-gray-200">
-              <div className="flex -space-x-3">
-                {[
-                  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=40&h=40&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=40&h=40&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1463453091185-61582044d556?w=40&h=40&fit=crop&q=80',
-                  'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=40&h=40&fit=crop&q=80',
-                ].map((src, i) => (
-                  <Image key={i} src={src} alt="" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white object-cover" />
-                ))}
+            <div className="flex items-center gap-4 bg-brand-50 rounded-2xl px-6 py-4 border border-brand-100">
+              <span className="text-2xl">🚀</span>
+              <div className="text-sm text-gray-700">
+                <strong className="text-gray-900">Bêta en cours de lancement</strong> — Rejoins les premiers testeurs et accède à PostFlow AI en avant-première
               </div>
-              <div className="text-sm text-gray-600">
-                <strong className="text-gray-900">+2 400 coachs</strong> ont rejoint cette semaine
-              </div>
+              <Link href="/inscription" className="btn-primary text-sm py-2 px-4 whitespace-nowrap">Accès anticipé →</Link>
             </div>
           </div>
         </div>
@@ -506,15 +480,15 @@ export default function LandingPage() {
           <div className="text-center mb-12">
             <div className="text-brand-500 text-xs font-bold uppercase tracking-widest mb-3">Tarifs transparents</div>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">Investis moins que le prix d'un café par jour</h2>
-            <p className="text-gray-500">Sans engagement · 7 jours d'essai gratuit · Annulable en 2 clics</p>
+            <p className="text-gray-500">Sans engagement · Annulable à tout moment · RGPD</p>
           </div>
 
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-10 max-w-2xl mx-auto flex gap-3">
             <span className="text-2xl flex-shrink-0">ℹ️</span>
             <p className="text-sm text-amber-800">
-              <strong>Comment ça fonctionne :</strong> Après votre paiement, votre compte sera activé
-              sous <strong>1 à 2 jours ouvrés</strong> après validation manuelle de notre équipe.
-              Vous recevrez un email de confirmation dès que votre accès est ouvert.
+              <strong>Comment ça fonctionne :</strong> Après ton paiement, ton accès sera activé
+              sous <strong>24h</strong>. Tu recevras un email de confirmation dès que ton compte est ouvert.
+              Tu peux annuler à tout moment pendant cette période sans être débité.
             </p>
           </div>
 
@@ -545,7 +519,7 @@ export default function LandingPage() {
                   href={`/inscription?forfait=${plan.key}`}
                   className={`w-full flex items-center justify-center py-3 rounded-xl font-bold text-sm transition-all duration-150 ${plan.popular ? 'btn-primary' : 'btn-outline'}`}
                 >
-                  Essayer 7 jours gratuits
+                  Rejoindre l'accès anticipé
                 </Link>
               </div>
             ))}
@@ -598,12 +572,12 @@ export default function LandingPage() {
             Prêt·e à arrêter de perdre du temps sur tes posts ?
           </h2>
           <p className="text-white/75 text-lg mb-10">
-            Rejoins +2 400 coaches et consultants qui publient plus, mieux, et sans effort.
+            Rejoins les premiers testeurs PostFlow AI — accès anticipé disponible maintenant.
           </p>
           <Link href="/inscription" className="inline-flex items-center gap-2 bg-white text-brand-600 font-bold px-8 py-4 rounded-2xl text-base hover:scale-105 transition-transform shadow-2xl">
-            Commencer gratuitement — 7 jours offerts →
+            Rejoindre l'accès anticipé →
           </Link>
-          <p className="text-white/50 text-xs mt-4">Aucune carte bancaire · Annulation en 1 clic · RGPD</p>
+          <p className="text-white/50 text-xs mt-4">Paiement sécurisé Stripe · Activation sous 24h · RGPD · Annulable sous 14 jours</p>
         </div>
       </section>
 
@@ -612,11 +586,12 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 flex flex-wrap justify-between items-center gap-4">
           <div className="text-white font-black text-lg">Post<span className="text-brand-400">Flow</span> AI</div>
           <div className="flex gap-6 flex-wrap text-sm text-gray-400">
-            {['Mentions légales', 'CGV', 'Confidentialité', 'Contact'].map(l => (
-              <a key={l} href="#" className="hover:text-white transition-colors">{l}</a>
-            ))}
+            <Link href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</Link>
+            <Link href="/cgu" className="hover:text-white transition-colors">CGU</Link>
+            <Link href="/confidentialite" className="hover:text-white transition-colors">Confidentialité</Link>
+            <a href="mailto:dylanrivals7@gmail.com" className="hover:text-white transition-colors">Contact</a>
           </div>
-          <div className="text-gray-500 text-sm">© 2025 PostFlow AI</div>
+          <div className="text-gray-500 text-sm">© 2026 PostFlow AI</div>
         </div>
       </footer>
     </div>

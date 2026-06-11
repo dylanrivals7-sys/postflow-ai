@@ -16,6 +16,7 @@ function InscriptionForm() {
     type_profil: 'coach',
     forfait: forfaitParam,
   })
+  const [rgpd, setRgpd] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -28,11 +29,15 @@ function InscriptionForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+
+    if (!rgpd) {
+      setError('Tu dois accepter les CGU et la politique de confidentialité pour continuer.')
+      return
+    }
+
     setLoading(true)
 
     try {
-      // Appel direct au checkout — le compte est créé côté serveur via admin client
-      // (bypass la confirmation email Supabase)
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -52,7 +57,6 @@ function InscriptionForm() {
         return
       }
 
-      // Rediriger vers Stripe Checkout
       window.location.href = json.url
     } catch {
       setError('Une erreur inattendue est survenue. Réessaie.')
@@ -68,16 +72,18 @@ function InscriptionForm() {
           <Link href="/" className="text-2xl font-black text-gray-900 inline-block mb-6">
             Post<span className="text-brand-500">Flow</span> AI
           </Link>
+          <span className="inline-flex items-center gap-1.5 bg-brand-50 text-brand-600 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-4">
+            🚀 Accès anticipé — Bêta
+          </span>
           <h1 className="text-2xl font-black text-gray-900 mb-1">Crée ton compte</h1>
-          <p className="text-gray-500 text-sm">7 jours gratuits, sans engagement</p>
+          <p className="text-gray-500 text-sm">Rejoins les premiers testeurs PostFlow AI</p>
         </div>
 
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6 flex gap-2.5 text-sm text-amber-800">
           <span className="text-lg flex-shrink-0">ℹ️</span>
           <div>
-            <strong>Délai d'activation :</strong> Votre compte sera activé sous
-            <strong> 1 à 2 jours ouvrés</strong> après validation de votre paiement.
-            Vous recevrez un email de confirmation dès que votre accès est ouvert.
+            <strong>Délai d'activation :</strong> Ton accès est activé sous <strong>24h</strong> après
+            réception de ton paiement. Tu peux annuler à tout moment pendant cette période sans être débité.
           </div>
         </div>
 
@@ -142,6 +148,22 @@ function InscriptionForm() {
               </select>
             </div>
 
+            <label className="flex items-start gap-2.5 cursor-pointer group">
+              <input
+                type="checkbox"
+                required
+                checked={rgpd}
+                onChange={e => setRgpd(e.target.checked)}
+                className="mt-0.5 w-4 h-4 accent-brand-500 flex-shrink-0"
+              />
+              <span className="text-xs text-gray-600 leading-relaxed">
+                J'ai lu et j'accepte les{' '}
+                <Link href="/cgu" target="_blank" className="text-brand-500 font-semibold hover:underline">CGU</Link>
+                {' '}et la{' '}
+                <Link href="/confidentialite" target="_blank" className="text-brand-500 font-semibold hover:underline">politique de confidentialité</Link>
+              </span>
+            </label>
+
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl">
                 {error}
@@ -153,8 +175,8 @@ function InscriptionForm() {
 
             <button
               type="submit"
-              disabled={loading}
-              className="btn-primary w-full justify-center mt-2"
+              disabled={loading || !rgpd}
+              className="btn-primary w-full justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center gap-2">

@@ -50,42 +50,41 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* Générateur rapide */}
+      {/* Accès anticipé */}
       <div className="bg-gradient-to-br from-brand-600 to-brand-500 rounded-3xl p-8 mb-8 text-white">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <div className="text-xs font-bold uppercase tracking-widest opacity-75 mb-2">Prêt à créer</div>
-            <h2 className="text-xl font-black mb-2">Génère ton premier post ✨</h2>
+            <div className="text-xs font-bold uppercase tracking-widest opacity-75 mb-2">Accès anticipé — Bêta</div>
+            <h2 className="text-xl font-black mb-2">Le générateur arrive très bientôt ✨</h2>
             <p className="text-white/70 text-sm max-w-md">
-              Décris ton idée en une phrase et PostFlow AI génère un post LinkedIn, Instagram ou TikTok en 30 secondes.
+              Tu fais partie des premiers testeurs de PostFlow AI. Le générateur de posts sera disponible
+              dans les prochains jours. On te notifie par email dès que c'est en ligne.
             </p>
           </div>
           <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${forfaitInfo.color} flex-shrink-0`}>
             Plan {forfaitInfo.name}
           </span>
         </div>
-        <a
-          href="/dashboard/generateur"
-          className="inline-flex items-center gap-2 mt-6 bg-white text-brand-600 font-bold text-sm px-5 py-2.5 rounded-xl hover:scale-105 transition-transform shadow-lg"
-        >
-          Générer un post →
-        </a>
+        <div className="mt-6 flex items-center gap-2 text-white/60 text-sm">
+          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+          Ton compte est actif · Tu seras notifié·e par email
+        </div>
       </div>
 
-      {/* Guides de démarrage */}
+      {/* Info accès */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-        <h3 className="font-black text-gray-900 mb-4">🚀 Pour bien démarrer</h3>
+        <h3 className="font-black text-gray-900 mb-4">📬 Ce qui t'attend</h3>
         <div className="grid md:grid-cols-3 gap-4">
           {[
-            { icon: '🎯', title: 'Configure ton ton de voix', desc: "Personnalise le style d'écriture adapté à ta niche.", href: '/dashboard/parametres' },
-            { icon: '📅', title: 'Planifie tes posts', desc: 'Utilise le calendrier éditorial IA pour 30 jours de contenu.', href: '/dashboard/calendrier' },
-            { icon: '📱', title: 'Connecte tes réseaux', desc: "Publie directement depuis ton dashboard sans copier-coller.", href: '/dashboard/parametres' },
+            { icon: '✍️', title: 'Génération de posts', desc: 'LinkedIn, Instagram, TikTok — en 30 secondes depuis ton tableau de bord.' },
+            { icon: '🎨', title: 'Ton de voix personnalisé', desc: 'PostFlow AI apprend ton style pour des posts qui te ressemblent vraiment.' },
+            { icon: '📅', title: 'Calendrier éditorial', desc: '30 jours de contenu planifié automatiquement selon ta niche.' },
           ].map(card => (
-            <a key={card.title} href={card.href} className="block p-4 rounded-xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50 transition-all">
+            <div key={card.title} className="p-4 rounded-xl border border-gray-100 bg-gray-50">
               <div className="text-2xl mb-2">{card.icon}</div>
               <div className="font-bold text-gray-900 text-sm mb-1">{card.title}</div>
               <div className="text-xs text-gray-500">{card.desc}</div>
-            </a>
+            </div>
           ))}
         </div>
       </div>
